@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:health/Resources/Private/Language/locallang" date="2021-01-22T23:31:05Z" product-name="health">
+		<header/>
+		<body>
+			<trans-unit id="tx_health_domain_model_site" resname="tx_health_domain_model_site">
+				<source>Site</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_site.title" resname="tx_health_domain_model_site.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_uri" resname="tx_health_domain_model_uri">
+				<source>Uri</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_uri.uri" resname="tx_health_domain_model_uri.uri">
+				<source>Uri</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_uri.site" resname="tx_health_domain_model_uri.site">
+				<source>Site</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_urirequest" resname="tx_health_domain_model_urirequest">
+				<source>Uri Request</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_urirequest.last_request" resname="tx_health_domain_model_urirequest.last_request">
+				<source>Last Request</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_urirequest.uri" resname="tx_health_domain_model_urirequest.uri">
+				<source>Uri</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

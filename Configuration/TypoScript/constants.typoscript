@@ -1,0 +1,15 @@
+
+plugin.tx_health_accessibility {
+    view {
+        # cat=plugin.tx_health_accessibility/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:health/Resources/Private/Templates/
+        # cat=plugin.tx_health_accessibility/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:health/Resources/Private/Partials/
+        # cat=plugin.tx_health_accessibility/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:health/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_health_accessibility//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
