@@ -1,12 +1,11 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site',
-        'label' => 'title',
+        'title' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_uriresponse',
+        'label' => 'last_request_time',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'sortby' => 'sorting',
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -17,14 +16,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,identifier',
-        'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_site.gif'
+        'searchFields' => 'body',
+        'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_uriresponse.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_request_time, body, uri',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_request_time, body, uri, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -54,8 +53,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_health_domain_model_site',
-                'foreign_table_where' => 'AND {#tx_health_domain_model_site}.{#pid}=###CURRENT_PID### AND {#tx_health_domain_model_site}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table' => 'tx_health_domain_model_uriresponse',
+                'foreign_table_where' => 'AND {#tx_health_domain_model_uriresponse}.{#pid}=###CURRENT_PID### AND {#tx_health_domain_model_uriresponse}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -118,40 +117,39 @@ return [
         
     
     
-        'title' => [
+        'last_request_time' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site.title',
+            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_uriresponse.last_request_time',
             'config' => [
+                'dbType' => 'datetime',
                 'type' => 'input',
-                'size' => 30,
+                'renderType' => 'inputDateTime',
+                'size' => 12,
+                'eval' => 'datetime,required',
+                'default' => null,
+            ],
+        ],
+        'body' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_uriresponse.body',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
                 'eval' => 'trim,required'
-            ],
+            ]
         ],
-        'identifier' => [
+        'uri' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site.identifier',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
-        ],
-        'domain' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site.domain',
+            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_uriresponse.uri',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'foreign_table' => 'tx_health_domain_model_domain',
+                'foreign_table' => 'tx_health_domain_model_uri',
                 'default' => 0,
                 'minitems' => 0,
                 'maxitems' => 1,
             ],
-            
-            
-            
-            
-            
             
         ],
     

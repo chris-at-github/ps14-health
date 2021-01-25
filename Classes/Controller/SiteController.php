@@ -14,46 +14,43 @@ namespace Ps14\Health\Controller;
  *  (c) 2021 Christian Pschorr <pschorr.christian@gmail.com>
  *
  ***/
+
 /**
  * SiteController
  */
-class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
+class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
-    /**
-     * siteRepository
-     * 
-     * @var \Ps14\Health\Domain\Repository\SiteRepository
-     */
-    protected $siteRepository = null;
+	/**
+	 * siteRepository
+	 *
+	 * @var \Ps14\Health\Domain\Repository\SiteRepository
+	 */
+	protected $siteRepository = null;
 
-    /**
-     * @param \Ps14\Health\Domain\Repository\SiteRepository $siteRepository
-     */
-    public function injectSiteRepository(\Ps14\Health\Domain\Repository\SiteRepository $siteRepository)
-    {
-        $this->siteRepository = $siteRepository;
-    }
+	/**
+	 * @param \Ps14\Health\Domain\Repository\SiteRepository $siteRepository
+	 */
+	public function injectSiteRepository(\Ps14\Health\Domain\Repository\SiteRepository $siteRepository) {
+		$this->siteRepository = $siteRepository;
+	}
 
-    /**
-     * action list
-     * 
-     * @return void
-     */
-    public function listAction()
-    {
-        $sites = $this->siteRepository->findAll();
-        $this->view->assign('sites', $sites);
-    }
+	/**
+	 * action list
+	 *
+	 * @return void
+	 */
+	public function listAction() {
+		$sites = $this->siteRepository->findAll();
+		$this->view->assign('sites', $sites);
+	}
 
-    /**
-     * action show
-     * 
-     * @param \Ps14\Health\Domain\Model\Site $site
-     * @return void
-     */
-    public function showAction(\Ps14\Health\Domain\Model\Site $site)
-    {
-        $this->view->assign('site', $site);
-    }
+	/**
+	 * action show
+	 *
+	 * @param \Ps14\Health\Domain\Model\Site $site
+	 * @return void
+	 */
+	public function showAction(\Ps14\Health\Domain\Model\Site $site) {
+		$this->view->assign('site', $site);
+	}
 }

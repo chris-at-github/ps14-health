@@ -1,8 +1,8 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_urirequest',
-        'label' => 'last_request',
+        'title' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_domain',
+        'label' => 'uri',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -16,14 +16,14 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => '',
-        'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_urirequest.gif'
+        'searchFields' => 'uri',
+        'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_domain.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_request, uri',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, uri',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, last_request, uri, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, uri, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -53,8 +53,8 @@ return [
                 'items' => [
                     ['', 0],
                 ],
-                'foreign_table' => 'tx_health_domain_model_urirequest',
-                'foreign_table_where' => 'AND {#tx_health_domain_model_urirequest}.{#pid}=###CURRENT_PID### AND {#tx_health_domain_model_urirequest}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table' => 'tx_health_domain_model_domain',
+                'foreign_table_where' => 'AND {#tx_health_domain_model_domain}.{#pid}=###CURRENT_PID### AND {#tx_health_domain_model_domain}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [
@@ -117,30 +117,14 @@ return [
         
     
     
-        'last_request' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_urirequest.last_request',
-            'config' => [
-                'dbType' => 'datetime',
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'size' => 12,
-                'eval' => 'datetime,required',
-                'default' => null,
-            ],
-        ],
         'uri' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_urirequest.uri',
+            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_domain.uri',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'tx_health_domain_model_uri',
-                'default' => 0,
-                'minitems' => 0,
-                'maxitems' => 1,
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim,required'
             ],
-            
         ],
     
     ],

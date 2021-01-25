@@ -29,6 +29,20 @@ class Site extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $title = '';
 
     /**
+     * identifier
+     * 
+     * @var string
+     */
+    protected $identifier = '';
+
+    /**
+     * domain
+     * 
+     * @var \Ps14\Health\Domain\Model\Domain
+     */
+    protected $domain = null;
+
+    /**
      * Returns the title
      * 
      * @return string $title
@@ -47,5 +61,47 @@ class Site extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Returns the identifier
+     * 
+     * @return string $identifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * Sets the identifier
+     * 
+     * @param string $identifier
+     * @return void
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+    }
+
+    /**
+     * Returns the domain
+     * 
+     * @return \Ps14\Health\Domain\Model\Domain $domain
+     */
+    public function getDomain()
+    {
+        return $this->domain;
+    }
+
+    /**
+     * Sets the domain
+     * 
+     * @param \Ps14\Health\Domain\Model\Domain $domain
+     * @return void
+     */
+    public function setDomain(\Ps14\Health\Domain\Model\Domain $domain)
+    {
+        $this->domain = $domain;
     }
 }

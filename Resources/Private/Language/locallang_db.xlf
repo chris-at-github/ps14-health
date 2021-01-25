@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:health/Resources/Private/Language/locallang_db" date="2021-01-22T23:31:05Z" product-name="health">
+	<file source-language="en" datatype="plaintext" original="EXT:health/Resources/Private/Language/locallang_db" date="2021-01-25T22:31:47Z" product-name="health">
 		<header/>
 		<body>
 			<trans-unit id="tx_health_domain_model_site" resname="tx_health_domain_model_site">
@@ -8,6 +8,12 @@
 			</trans-unit>
 			<trans-unit id="tx_health_domain_model_site.title" resname="tx_health_domain_model_site.title">
 				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_site.identifier" resname="tx_health_domain_model_site.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_site.domain" resname="tx_health_domain_model_site.domain">
+				<source>Domain</source>
 			</trans-unit>
 			<trans-unit id="tx_health_domain_model_uri" resname="tx_health_domain_model_uri">
 				<source>Uri</source>
@@ -18,13 +24,22 @@
 			<trans-unit id="tx_health_domain_model_uri.site" resname="tx_health_domain_model_uri.site">
 				<source>Site</source>
 			</trans-unit>
-			<trans-unit id="tx_health_domain_model_urirequest" resname="tx_health_domain_model_urirequest">
-				<source>Uri Request</source>
+			<trans-unit id="tx_health_domain_model_uriresponse" resname="tx_health_domain_model_uriresponse">
+				<source>Uri Response</source>
 			</trans-unit>
-			<trans-unit id="tx_health_domain_model_urirequest.last_request" resname="tx_health_domain_model_urirequest.last_request">
-				<source>Last Request</source>
+			<trans-unit id="tx_health_domain_model_uriresponse.last_request_time" resname="tx_health_domain_model_uriresponse.last_request_time">
+				<source>Last Request Time</source>
 			</trans-unit>
-			<trans-unit id="tx_health_domain_model_urirequest.uri" resname="tx_health_domain_model_urirequest.uri">
+			<trans-unit id="tx_health_domain_model_uriresponse.body" resname="tx_health_domain_model_uriresponse.body">
+				<source>Body</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_uriresponse.uri" resname="tx_health_domain_model_uriresponse.uri">
+				<source>Uri</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_domain" resname="tx_health_domain_model_domain">
+				<source>Domain</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_domain.uri" resname="tx_health_domain_model_domain.uri">
 				<source>Uri</source>
 			</trans-unit>
 			<trans-unit id="tx_health_accessibility.name" resname="tx_health_accessibility.name">
