@@ -1,7 +1,8 @@
 CREATE TABLE tx_health_domain_model_site (
 	title varchar(255) DEFAULT '' NOT NULL,
 	identifier varchar(255) DEFAULT '' NOT NULL,
-	domain int(11) unsigned DEFAULT '0'
+	domain int(11) unsigned DEFAULT '0',
+	uris int(11) unsigned DEFAULT '0'
 );
 
 CREATE TABLE tx_health_domain_model_uri (

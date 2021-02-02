@@ -2,24 +2,23 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function()
-    {
+	function() {
 
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Health',
-            'Accessibility',
-            [
-                \Ps14\Health\Controller\SiteController::class => 'list, show'
-            ],
-            // non-cacheable actions
-            [
-                \Ps14\Health\Controller\SiteController::class => ''
-            ]
-        );
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+			'Health',
+			'Accessibility',
+			[
+				\Ps14\Health\Controller\SiteController::class => 'list, show, testing'
+			],
+			// non-cacheable actions
+			[
+				\Ps14\Health\Controller\SiteController::class => 'testing'
+			]
+		);
 
-        // wizards
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            'mod {
+		// wizards
+		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+			'mod {
                 wizards.newContentElement.wizardItems.plugins {
                     elements {
                         accessibility {
@@ -35,14 +34,14 @@ call_user_func(
                     show = *
                 }
            }'
-        );
+		);
 		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-		
-			$iconRegistry->registerIcon(
-				'health-plugin-accessibility',
-				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:health/Resources/Public/Icons/user_plugin_accessibility.svg']
-			);
-		
-    }
+
+		$iconRegistry->registerIcon(
+			'health-plugin-accessibility',
+			\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+			['source' => 'EXT:health/Resources/Public/Icons/user_plugin_accessibility.svg']
+		);
+
+	}
 );
