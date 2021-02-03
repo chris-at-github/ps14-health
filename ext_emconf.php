@@ -11,21 +11,21 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'Health',
-    'description' => '',
-    'category' => 'plugin',
-    'author' => 'Christian Pschorr',
-    'author_email' => 'pschorr.christian@gmail.com',
-    'state' => 'alpha',
-    'createDirs' => '',
-    'clearCacheOnLoad' => 0,
-    'version' => '0.1.0',
-    'constraints' => [
-        'depends' => [
-            'typo3' => '10.4.0-10.4.99',
-            'xo' => '1.0.0-1.99.00',
-        ],
-        'conflicts' => [],
-        'suggests' => [],
-    ],
+	'title' => 'Health',
+	'description' => '',
+	'category' => 'plugin',
+	'author' => 'Christian Pschorr',
+	'author_email' => 'pschorr.christian@gmail.com',
+	'state' => 'alpha',
+	'createDirs' => '',
+	'clearCacheOnLoad' => 0,
+	'version' => '0.1.0',
+	'constraints' => [
+		'depends' => [
+			'typo3' => '10.4.0-10.4.99',
+			'xo' => '1.0.0-1.99.00',
+		],
+		'conflicts' => [],
+		'suggests' => [],
+	],
 ];

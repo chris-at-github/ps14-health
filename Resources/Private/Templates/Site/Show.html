@@ -4,7 +4,8 @@
 	<f:flashMessages/>
 
   <f:form action="testing">
-		<f:debug>{site}</f:debug>
+		<f:form.select name="uri" options="{site.uris}" optionLabelField="uri" prependOptionValue="0" prependOptionLabel="" />
+		<button>Testen</button>
 	</f:form>
 </f:section>
 </html>

@@ -16,11 +16,6 @@
             "Ps14\\Health\\": "Classes"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Ps14\\Health\\Tests\\": "Tests"
-        }
-    },
     "replace": {
         "typo3-ter/health": "self.version"
     }
