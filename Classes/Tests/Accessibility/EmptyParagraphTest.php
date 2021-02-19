@@ -16,7 +16,7 @@ class EmptyParagraphTest extends UriTest implements UriTestInterface {
 	public function perform() {
 		$html = $this->getUriResponse()->getBody();
 
-		if(preg_match_all('/<p>(&nbsp;|\s*)<\/p>/gmi', $html, $matches) !== 0) {
+		if(preg_match_all('/<p>(&nbsp;|\s*)<\/p>/mi', $html, $matches) !== 0) {
 			return new ErrorTestResult();
 		}
 

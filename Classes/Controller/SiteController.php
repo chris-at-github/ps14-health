@@ -9,7 +9,11 @@ use Ps14\Health\Domain\Repository\UriRepository;
 use Ps14\Health\Tests\AbstractTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
 use Ps14\Health\Tests\ErrorTestResult;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /***
  *
@@ -71,7 +75,7 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$response = $this->objectManager->getEmptyObject(UriResponse::class);
 		$response->setLastRequestTime(new \DateTime());
 		$response->setUri($uri);
-		$response->setBody('<body><p>&bnsp;</p></body>');
+		$response->setBody(file_get_contents(Environment::getExtensionsPath() . '/health/Resources/HTML/test-98749237424.html'));
 
 		return $response;
 	}
@@ -108,7 +112,10 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			}
 		}
 
-		DebuggerUtility::var_dump($log);
+		if($error === true) {
+			DebuggerUtility::var_dump($log);
+		}
+
 
 		return true;
 	}
