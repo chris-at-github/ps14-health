@@ -3,7 +3,7 @@ namespace Ps14\Health\Tests;
 
 use Ps14\Health\Domain\Model\UriResponse;
 
-interface PageTestInterface {
+interface UriTestInterface {
 
 	/**
 	 * @param UriResponse $uriResponse

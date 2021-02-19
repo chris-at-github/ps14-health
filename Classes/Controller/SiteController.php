@@ -8,6 +8,7 @@ use Ps14\Health\Domain\Model\UriResponse;
 use Ps14\Health\Domain\Repository\UriRepository;
 use Ps14\Health\Tests\AbstractTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
+use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***
@@ -70,7 +71,7 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		$response = $this->objectManager->getEmptyObject(UriResponse::class);
 		$response->setLastRequestTime(new \DateTime());
 		$response->setUri($uri);
-		$response->setBody('<body><p>&bnsp;</p>');
+		$response->setBody('<body><p>&bnsp;</p></body>');
 
 		return $response;
 	}
@@ -87,6 +88,10 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			EmptyParagraphTest::class
 		];
 
+		$log = [
+			'uri' => $response->getUri()->getUri()
+		];
+
 		foreach($tests as $test) {
 
 			/** @var AbstractTest $testInstance */
@@ -94,7 +99,16 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$testInstance->setUriResponse($response);
 
 			$result = $testInstance->perform();
+
+			if($result instanceof ErrorTestResult) {
+				$error = true;
+				$log[$test] = false;
+			} else {
+				$log[$test] = true;
+			}
 		}
+
+		DebuggerUtility::var_dump($log);
 
 		return true;
 	}
