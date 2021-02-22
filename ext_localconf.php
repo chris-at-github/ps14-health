@@ -16,6 +16,17 @@ call_user_func(
 			]
 		);
 
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+			'Health',
+			'Dirty',
+			[
+				\Ps14\Health\Controller\DirtyController::class => 'index, addUri'
+			],
+			[
+				\Ps14\Health\Controller\DirtyController::class => 'index, addUri'
+			]
+		);
+
 		// wizards
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 			'mod {
@@ -28,6 +39,15 @@ call_user_func(
                             tt_content_defValues {
                                 CType = list
                                 list_type = health_accessibility
+                            }
+                        }
+                        health_dirty {
+                            iconIdentifier = health-plugin-accessibility
+                            title = Health Dirty
+                            description = LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_accessibility.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = health_dirty
                             }
                         }
                     }

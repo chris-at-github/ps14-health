@@ -9,6 +9,12 @@ call_user_func(
 			'Health Accessibility'
 		);
 
+		\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+			'Health',
+			'Dirty',
+			'Health Dirty'
+		);
+
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('health', 'Configuration/TypoScript', 'Health');
 
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_health_domain_model_site');

@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default"/>
+<f:section name="Main">
+	<f:flashMessages/>
+
+	<f:form action="addUri">
+		<div class="form-item">
+			<label class="form-label">Site</label>
+			<f:form.select options="{sites}" name="site" class="form-field" />
+		</div>
+
+		<div class="form-item">
+			<label class="form-label">Uri</label>
+			<f:form.textfield name="uri" class="form-field" />
+		</div>
+
+		<div class="form-action">
+			<button type="submit">Eintragen</button>
+		</div>
+	</f:form>
+
+</f:section>
+</html>

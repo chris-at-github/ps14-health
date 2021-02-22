@@ -1,5 +1,5 @@
 
-plugin.tx_health_accessibility {
+plugin.tx_health {
     view {
         # cat=plugin.tx_health_accessibility/file; type=string; label=Path to template root (FE)
         templateRootPath = EXT:health/Resources/Private/Templates/
