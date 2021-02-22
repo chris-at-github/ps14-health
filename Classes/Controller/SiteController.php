@@ -8,6 +8,7 @@ use Ps14\Health\Domain\Model\UriResponse;
 use Ps14\Health\Domain\Repository\UriRepository;
 use Ps14\Health\Tests\AbstractTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
+use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
 use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -89,7 +90,8 @@ class SiteController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	public function testingAction(\Ps14\Health\Domain\Model\Uri $uri = null) {
 		$response = $this->getMock();
 		$tests = [
-			EmptyParagraphTest::class
+			EmptyParagraphTest::class,
+			DoubleSpaceEntityTest::class
 		];
 
 		$log = [
