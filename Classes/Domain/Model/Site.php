@@ -45,6 +45,7 @@ class Site extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Ps14\Health\Domain\Model\Uri>
 	 * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+	 * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
 	 */
 	protected $uris = null;
 

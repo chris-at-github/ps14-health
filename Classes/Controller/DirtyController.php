@@ -6,7 +6,7 @@ namespace Ps14\Health\Controller;
 use Ps14\Health\Domain\Model\Site;
 use Ps14\Health\Domain\Model\Uri;
 use Ps14\Health\Domain\Repository\SiteRepository;
-use Ps14\QueueHandler\UriHandler;
+use Ps14\Health\QueueHandler\UriHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -75,6 +75,9 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
 		if(empty($uri['uid']) === false) {
 			$identifier = sha1(UriHandler::class . '.' . $site->getUid() . '.' . $uri['uid']);
+			$arguments = [
+				'uri' => $uri['uid']
+			];
 
 			/** @var QueryBuilder $queryBuilder */
 			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
@@ -98,9 +101,40 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 					'site' => 	$site->getUid(),
 					'handler' => UriHandler::class,
 					'next_execution' => $now->format('Y-m-d H:i:s'),
-					'arguments' => json_encode($uri)
+					'arguments' => json_encode($arguments)
 				]);
 			}
+		}
+	}
+
+	/**
+	 * @param Site $site
+	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+	 */
+	public function processQueueAction(Site $site) {
+
+		$now = new \DateTime();
+
+		/** @var QueryBuilder $queryBuilder */
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
+		$statement = $queryBuilder
+			->select('*')
+			->from('tx_health_domain_model_queue')
+			->where(
+				$queryBuilder->expr()->lte('next_execution', $queryBuilder->createNamedParameter($now->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
+
+			)
+			->orderBy('next_execution')
+			->execute();
+
+		if(($queue = $statement->fetch()) !== false) {
+
+			/** @var Site $site */
+			$site = $this->objectManager->get(SiteRepository::class)->findByUid((int) $queue['site']);
+
+			/** @var UriHandler $handler */
+			$handler = GeneralUtility::makeInstance($queue['handler'], $site, json_decode($queue['arguments'], true));
+			$handler->handle();
 		}
 	}
 }

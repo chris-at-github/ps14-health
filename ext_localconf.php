@@ -20,10 +20,10 @@ call_user_func(
 			'Health',
 			'Dirty',
 			[
-				\Ps14\Health\Controller\DirtyController::class => 'index, addUri'
+				\Ps14\Health\Controller\DirtyController::class => 'index, addUri, processQueue'
 			],
 			[
-				\Ps14\Health\Controller\DirtyController::class => 'index, addUri'
+				\Ps14\Health\Controller\DirtyController::class => 'index, addUri, processQueue'
 			]
 		);
 

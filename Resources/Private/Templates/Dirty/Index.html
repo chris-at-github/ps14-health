@@ -3,7 +3,7 @@
 <f:section name="Main">
 	<f:flashMessages/>
 
-	<f:form action="addUri">
+	<f:form action="addUri" class="form--layout-0">
 		<div class="form-item">
 			<label class="form-label">Site</label>
 			<f:form.select options="{sites}" name="site" class="form-field" />
@@ -15,7 +15,20 @@
 		</div>
 
 		<div class="form-action">
-			<button type="submit">Eintragen</button>
+			<button type="submit" class="button">Eintragen</button>
+		</div>
+	</f:form>
+
+	<hr>
+
+	<f:form action="processQueue" class="form--layout-0">
+		<div class="form-item">
+			<label class="form-label">Site</label>
+			<f:form.select options="{sites}" name="site" class="form-field" />
+		</div>
+
+		<div class="form-action">
+			<button type="submit" class="button">Queue verarbeiten</button>
 		</div>
 	</f:form>
 
