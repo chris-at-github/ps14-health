@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:health/Resources/Private/Language/locallang_db" date="2021-01-25T22:31:47Z" product-name="health">
+	<file source-language="en" datatype="plaintext" original="EXT:health/Resources/Private/Language/locallang_db" date="2021-02-22T15:22:08Z" product-name="health">
 		<header/>
 		<body>
 			<trans-unit id="tx_health_domain_model_site" resname="tx_health_domain_model_site">
@@ -44,6 +44,24 @@
 			</trans-unit>
 			<trans-unit id="tx_health_domain_model_domain.uri" resname="tx_health_domain_model_domain.uri">
 				<source>Uri</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue" resname="tx_health_domain_model_queue">
+				<source>Test Queue</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue.identifier" resname="tx_health_domain_model_queue.identifier">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue.handler" resname="tx_health_domain_model_queue.handler">
+				<source>Handler</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue.next_execution" resname="tx_health_domain_model_queue.next_execution">
+				<source>Next Execution</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue.arguments" resname="tx_health_domain_model_queue.arguments">
+				<source>Arguments</source>
+			</trans-unit>
+			<trans-unit id="tx_health_domain_model_queue.site" resname="tx_health_domain_model_queue.site">
+				<source>Site</source>
 			</trans-unit>
 			<trans-unit id="tx_health_accessibility.name" resname="tx_health_accessibility.name">
 				<source>Health Accessibility</source>
