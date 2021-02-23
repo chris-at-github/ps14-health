@@ -54,7 +54,7 @@
 			<trans-unit id="tx_health_domain_model_queue.handler" resname="tx_health_domain_model_queue.handler">
 				<source>Handler</source>
 			</trans-unit>
-			<trans-unit id="tx_health_domain_model_queue.next_execution" resname="tx_health_domain_model_queue.next_execution">
+			<trans-unit id="tx_health_domain_model_queue.execute_at" resname="tx_health_domain_model_queue.execute_at">
 				<source>Next Execution</source>
 			</trans-unit>
 			<trans-unit id="tx_health_domain_model_queue.arguments" resname="tx_health_domain_model_queue.arguments">

@@ -23,7 +23,7 @@ CREATE TABLE tx_health_domain_model_domain (
 CREATE TABLE tx_health_domain_model_queue (
 	identifier varchar(255) DEFAULT '' NOT NULL,
 	handler varchar(255) DEFAULT '' NOT NULL,
-	next_execution datetime DEFAULT NULL,
+	execute_at datetime DEFAULT NULL,
 	arguments text,
 	site int(11) unsigned DEFAULT '0'
 );

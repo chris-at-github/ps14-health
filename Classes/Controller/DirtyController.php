@@ -100,7 +100,7 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 					'identifier' => $identifier,
 					'site' => 	$site->getUid(),
 					'handler' => UriHandler::class,
-					'next_execution' => $now->format('Y-m-d H:i:s'),
+					'execute_at' => $now->format('Y-m-d H:i:s'),
 					'arguments' => json_encode($arguments)
 				]);
 			}
@@ -121,13 +121,16 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			->select('*')
 			->from('tx_health_domain_model_queue')
 			->where(
-				$queryBuilder->expr()->lte('next_execution', $queryBuilder->createNamedParameter($now->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
+				$queryBuilder->expr()->lte('execute_at', $queryBuilder->createNamedParameter($now->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
 
 			)
-			->orderBy('next_execution')
+			->orderBy('execute_at')
+			->setMaxResults(1)
 			->execute();
 
 		if(($queue = $statement->fetch()) !== false) {
+
+			DebuggerUtility::var_dump($queue);
 
 			/** @var Site $site */
 			$site = $this->objectManager->get(SiteRepository::class)->findByUid((int) $queue['site']);
@@ -135,6 +138,19 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			/** @var UriHandler $handler */
 			$handler = GeneralUtility::makeInstance($queue['handler'], $site, json_decode($queue['arguments'], true));
 			$handler->handle();
+
+			$executeAt = new \DateTime();
+			$executeAt->setTimestamp($now->getTimestamp() + $handler->getInterval());
+
+			$queryBuilder
+				->update('tx_health_domain_model_queue')
+				->where(
+					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queue['uid'], \PDO::PARAM_INT))
+				)
+				->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
+				->execute();
 		}
+
+		return true;
 	}
 }

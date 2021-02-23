@@ -21,10 +21,10 @@ return [
         'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_queue.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, handler, next_execution, arguments, site',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, handler, execute_at, arguments, site',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, handler, next_execution, arguments, site, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, identifier, handler, execute_at, arguments, site, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -136,9 +136,9 @@ return [
                 'eval' => 'trim,required'
             ],
         ],
-        'next_execution' => [
+        'execute_at' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_queue.next_execution',
+            'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_queue.execute_at',
             'config' => [
                 'dbType' => 'datetime',
                 'type' => 'input',
