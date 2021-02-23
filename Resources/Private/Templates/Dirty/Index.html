@@ -32,5 +32,23 @@
 		</div>
 	</f:form>
 
+	<hr>
+
+	<f:form action="readSitemapXml" class="form--layout-0">
+		<div class="form-item">
+			<label class="form-label">Site</label>
+			<f:form.select options="{sites}" name="site" class="form-field" />
+		</div>
+
+		<div class="form-item">
+			<label class="form-label">Sitemap</label>
+			<f:form.textfield name="sitemap" class="form-field" />
+		</div>
+
+		<div class="form-action">
+			<button type="submit" class="button">Einlesen</button>
+		</div>
+	</f:form>
+
 </f:section>
 </html>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Ps14\Health\Controller;
 
+use GuzzleHttp\Client;
 use Ps14\Health\Domain\Model\Site;
 use Ps14\Health\Domain\Model\Uri;
 use Ps14\Health\Domain\Repository\SiteRepository;
@@ -41,70 +42,71 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
 	 */
 	public function addUriAction(Site $site) {
+		$this->addUri($site, $this->request->getArgument('uri'));
 
-		/** @var QueryBuilder $queryBuilder */
-		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_uri');
-		$statement = $queryBuilder
-			->select('uid')
-			->from('tx_health_domain_model_uri')
-			->where(
-				$queryBuilder->expr()->eq('site', $queryBuilder->createNamedParameter($site->getUid(), \PDO::PARAM_INT)),
-				$queryBuilder->expr()->eq('uri', $queryBuilder->createNamedParameter($this->request->getArgument('uri'), \PDO::PARAM_STR))
-			)
-			->execute();
-
-		$uri = $statement->fetch();
-		$now = new \DateTime();
-
-		if($uri === false) {
-
-			/** @var Connection $connection */
-			$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_uri');
-			$connection->insert('tx_health_domain_model_uri', [
-				'uri' => $this->request->getArgument('uri'),
-				'site' => 	$site->getUid(),
-				'pid' => $site->getPid(),
-				'tstamp' => $now->getTimestamp(),
-				'crdate' => $now->getTimestamp()
-			]);
-
-			$uri = [
-				'uid' => (int) $connection->lastInsertId('tx_health_domain_model_uri')
-			];
-		}
-
-		if(empty($uri['uid']) === false) {
-			$identifier = sha1(UriHandler::class . '.' . $site->getUid() . '.' . $uri['uid']);
-			$arguments = [
-				'uri' => $uri['uid']
-			];
-
-			/** @var QueryBuilder $queryBuilder */
-			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
-			$statement = $queryBuilder
-				->select('uid')
-				->from('tx_health_domain_model_queue')
-				->where(
-					$queryBuilder->expr()->eq('identifier', $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_STR))
-				)
-				->execute();
-
-			if($statement->fetch() === false) {
-
-				/** @var Connection $connection */
-				$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_queue');
-				$connection->insert('tx_health_domain_model_queue', [
-					'pid' => $site->getPid(),
-					'tstamp' => $now->getTimestamp(),
-					'crdate' => $now->getTimestamp(),
-					'identifier' => $identifier,
-					'site' => 	$site->getUid(),
-					'handler' => UriHandler::class,
-					'execute_at' => $now->format('Y-m-d H:i:s'),
-					'arguments' => json_encode($arguments)
-				]);
-			}
-		}
+//		/** @var QueryBuilder $queryBuilder */
+//		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_uri');
+//		$statement = $queryBuilder
+//			->select('uid')
+//			->from('tx_health_domain_model_uri')
+//			->where(
+//				$queryBuilder->expr()->eq('site', $queryBuilder->createNamedParameter($site->getUid(), \PDO::PARAM_INT)),
+//				$queryBuilder->expr()->eq('uri', $queryBuilder->createNamedParameter($this->request->getArgument('uri'), \PDO::PARAM_STR))
+//			)
+//			->execute();
+//
+//		$uri = $statement->fetch();
+//		$now = new \DateTime();
+//
+//		if($uri === false) {
+//
+//			/** @var Connection $connection */
+//			$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_uri');
+//			$connection->insert('tx_health_domain_model_uri', [
+//				'uri' => $this->request->getArgument('uri'),
+//				'site' => 	$site->getUid(),
+//				'pid' => $site->getPid(),
+//				'tstamp' => $now->getTimestamp(),
+//				'crdate' => $now->getTimestamp()
+//			]);
+//
+//			$uri = [
+//				'uid' => (int) $connection->lastInsertId('tx_health_domain_model_uri')
+//			];
+//		}
+//
+//		if(empty($uri['uid']) === false) {
+//			$identifier = sha1(UriHandler::class . '.' . $site->getUid() . '.' . $uri['uid']);
+//			$arguments = [
+//				'uri' => $uri['uid']
+//			];
+//
+//			/** @var QueryBuilder $queryBuilder */
+//			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
+//			$statement = $queryBuilder
+//				->select('uid')
+//				->from('tx_health_domain_model_queue')
+//				->where(
+//					$queryBuilder->expr()->eq('identifier', $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_STR))
+//				)
+//				->execute();
+//
+//			if($statement->fetch() === false) {
+//
+//				/** @var Connection $connection */
+//				$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_queue');
+//				$connection->insert('tx_health_domain_model_queue', [
+//					'pid' => $site->getPid(),
+//					'tstamp' => $now->getTimestamp(),
+//					'crdate' => $now->getTimestamp(),
+//					'identifier' => $identifier,
+//					'site' => 	$site->getUid(),
+//					'handler' => UriHandler::class,
+//					'execute_at' => $now->format('Y-m-d H:i:s'),
+//					'arguments' => json_encode($arguments)
+//				]);
+//			}
+//		}
 	}
 
 	/**
@@ -152,5 +154,100 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param Site $site
+	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+	 */
+	public function readSitemapXmlAction(Site $site) {
+		$client = new Client();
+		$response = $client->request('GET', $this->request->getArgument('sitemap'));
+		$xml = $response->getBody()->getContents();
+
+		if(empty($xml) === false) {
+			$sitemap = new \SimpleXMLElement($xml);
+			foreach($sitemap->url as $url) {
+				$uri = str_replace($site->getDomain()->getUri(), '', (string) $url->loc);
+
+				if(empty($uri) === false) {
+					$this->addUri($site, $uri);
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param Site $site
+	 * @param string $uri
+	 * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+	 */
+	protected function addUri(Site $site, string $uri) {
+
+		/** @var QueryBuilder $queryBuilder */
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_uri');
+		$statement = $queryBuilder
+			->select('uid')
+			->from('tx_health_domain_model_uri')
+			->where(
+				$queryBuilder->expr()->eq('site', $queryBuilder->createNamedParameter($site->getUid(), \PDO::PARAM_INT)),
+				$queryBuilder->expr()->eq('uri', $queryBuilder->createNamedParameter($uri, \PDO::PARAM_STR))
+			)
+			->execute();
+
+		$uid = $statement->fetch();
+		$now = new \DateTime();
+
+		if($uid === false) {
+
+			/** @var Connection $connection */
+			$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_uri');
+			$connection->insert('tx_health_domain_model_uri', [
+				'uri' => $uri,
+				'site' => $site->getUid(),
+				'pid' => $site->getPid(),
+				'tstamp' => $now->getTimestamp(),
+				'crdate' => $now->getTimestamp()
+			]);
+
+			$uid = [
+				'uid' => (int) $connection->lastInsertId('tx_health_domain_model_uri')
+			];
+		}
+
+		if(empty($uid['uid']) === false) {
+			$identifier = sha1(UriHandler::class . '.' . $site->getUid() . '.' . $uid['uid']);
+			$arguments = [
+				'uri' => $uid['uid']
+			];
+
+			/** @var QueryBuilder $queryBuilder */
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
+			$statement = $queryBuilder
+				->select('uid')
+				->from('tx_health_domain_model_queue')
+				->where(
+					$queryBuilder->expr()->eq('identifier', $queryBuilder->createNamedParameter($identifier, \PDO::PARAM_STR))
+				)
+				->execute();
+
+			if($statement->fetch() === false) {
+
+				/** @var Connection $connection */
+				$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_health_domain_model_queue');
+				$connection->insert('tx_health_domain_model_queue', [
+					'pid' => $site->getPid(),
+					'tstamp' => $now->getTimestamp(),
+					'crdate' => $now->getTimestamp(),
+					'identifier' => $identifier,
+					'site' => 	$site->getUid(),
+					'handler' => UriHandler::class,
+					'execute_at' => $now->format('Y-m-d H:i:s'),
+					'arguments' => json_encode($arguments)
+				]);
+			}
+		}
 	}
 }
