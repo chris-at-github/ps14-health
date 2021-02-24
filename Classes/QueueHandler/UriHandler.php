@@ -10,6 +10,7 @@ use Ps14\Health\Domain\Repository\UriResponseRepository;
 use Ps14\Health\Tests\AbstractTest;
 use Ps14\Health\Tests\Accessibility\DoubleBreakTest;
 use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
+use Ps14\Health\Tests\Accessibility\EmptyAltAttributeTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
 use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Core\Core\Environment;
@@ -56,6 +57,7 @@ class UriHandler {
 			EmptyParagraphTest::class,
 			DoubleSpaceEntityTest::class,
 			DoubleBreakTest::class,
+			EmptyAltAttributeTest::class,
 		];
 		$error = false;
 		$log = [
