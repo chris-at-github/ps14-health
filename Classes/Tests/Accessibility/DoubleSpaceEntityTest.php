@@ -18,6 +18,7 @@ class DoubleSpaceEntityTest extends UriTest implements UriTestInterface {
 		$html = $this->getUriResponse()->getBody();
 
 		if(preg_match_all('/(&nbsp;){2,}/mi', $html, $matches) !== 0) {
+			DebuggerUtility::var_dump($matches);
 			return new ErrorTestResult();
 		}
 

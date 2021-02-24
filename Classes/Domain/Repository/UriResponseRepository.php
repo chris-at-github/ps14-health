@@ -31,7 +31,7 @@ class UriResponseRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 			}
 
     	if(empty($matches) === false) {
-    		$query->logicalAnd($matches);
+    		$query->matching($query->logicalAnd($matches));
 			}
 
     	return $query->execute()->getFirst();

@@ -85,6 +85,9 @@ class UriHandler {
 			}
 		}
 
+
+		DebuggerUtility::var_dump($log);
+
 		if($error === true) {
 			fputcsv($fp, $log);
 		}

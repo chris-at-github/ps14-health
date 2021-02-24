@@ -124,15 +124,12 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			->from('tx_health_domain_model_queue')
 			->where(
 				$queryBuilder->expr()->lte('execute_at', $queryBuilder->createNamedParameter($now->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
-
 			)
 			->orderBy('execute_at')
 			->setMaxResults(1)
 			->execute();
 
 		if(($queue = $statement->fetch()) !== false) {
-
-			DebuggerUtility::var_dump($queue);
 
 			/** @var Site $site */
 			$site = $this->objectManager->get(SiteRepository::class)->findByUid((int) $queue['site']);
@@ -144,13 +141,13 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			$executeAt = new \DateTime();
 			$executeAt->setTimestamp($now->getTimestamp() + $handler->getInterval());
 
-			$queryBuilder
-				->update('tx_health_domain_model_queue')
-				->where(
-					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queue['uid'], \PDO::PARAM_INT))
-				)
-				->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
-				->execute();
+//			$queryBuilder
+//				->update('tx_health_domain_model_queue')
+//				->where(
+//					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queue['uid'], \PDO::PARAM_INT))
+//				)
+//				->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
+//				->execute();
 		}
 
 		return true;

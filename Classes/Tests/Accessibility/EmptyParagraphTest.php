@@ -7,6 +7,7 @@ use Ps14\Health\Tests\SuccessTestResult;
 use Ps14\Health\Tests\UriTest;
 use Ps14\Health\Tests\UriTestInterface;
 use Ps14\Health\Tests\TestResultInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class EmptyParagraphTest extends UriTest implements UriTestInterface {
 
