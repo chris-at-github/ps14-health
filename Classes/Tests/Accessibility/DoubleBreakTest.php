@@ -9,7 +9,7 @@ use Ps14\Health\Tests\UriTestInterface;
 use Ps14\Health\Tests\TestResultInterface;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
-class DoubleSpaceEntityTest extends UriTest implements UriTestInterface {
+class DoubleBreakTest extends UriTest implements UriTestInterface {
 
 	/**
 	 * @return TestResultInterface|void
@@ -17,7 +17,7 @@ class DoubleSpaceEntityTest extends UriTest implements UriTestInterface {
 	public function perform() {
 		$html = $this->getUriResponse()->getBody();
 
-		if(preg_match_all('/(&nbsp;){2,}/mi', $html, $matches) !== 0) {
+		if(preg_match_all('/(<br\s*\/?>\s*){2,}/mi', $html, $matches) !== 0) {
 			return new ErrorTestResult();
 		}
 

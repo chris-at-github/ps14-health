@@ -8,6 +8,7 @@ use Ps14\Health\Domain\Model\UriResponse;
 use Ps14\Health\Domain\Repository\UriRepository;
 use Ps14\Health\Domain\Repository\UriResponseRepository;
 use Ps14\Health\Tests\AbstractTest;
+use Ps14\Health\Tests\Accessibility\DoubleBreakTest;
 use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
 use Ps14\Health\Tests\ErrorTestResult;
@@ -53,7 +54,8 @@ class UriHandler {
 		$logFile = Environment::getPublicPath() . '/fileadmin/documents/a11y.csv';
 		$tests = [
 			EmptyParagraphTest::class,
-			DoubleSpaceEntityTest::class
+			DoubleSpaceEntityTest::class,
+			DoubleBreakTest::class,
 		];
 		$error = false;
 		$log = [
