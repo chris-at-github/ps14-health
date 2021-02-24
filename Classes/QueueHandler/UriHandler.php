@@ -78,13 +78,20 @@ class UriHandler {
 			}
 		}
 
+		if(empty($logEntries) === false) {
+			fwrite($fp, '---------------------------------------------------------' . PHP_EOL);
+			fwrite($fp, $this->uri->getUri() . PHP_EOL);
+
+			foreach($logEntries as $logEntry) {
+				fwrite($fp, $logEntry . PHP_EOL);
+			}
+
+			fwrite($fp, PHP_EOL);
+		}
+
 		DebuggerUtility::var_dump($logEntries);
-//
-//		if($error === true) {
-//			fputcsv($fp, $log);
-//		}
-//
-//		fclose($fp);
+
+		fclose($fp);
 	}
 
 	/**

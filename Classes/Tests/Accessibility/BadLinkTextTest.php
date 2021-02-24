@@ -53,7 +53,7 @@ class BadLinkTextTest extends UriTest implements UriTestInterface {
 		}
 
 		if(empty($references) === false) {
-			return new ErrorTestResult('Found ' . count($matches[0]) . ' bad link text or duplicate title-attribute: ' . implode(', ', $references));
+			return new ErrorTestResult('Found ' . count($references) . ' bad link text or duplicate title-attribute: ' . implode(', ', $references));
 		}
 
 		return new SuccessTestResult();
