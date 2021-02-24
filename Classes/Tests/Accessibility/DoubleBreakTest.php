@@ -16,9 +16,14 @@ class DoubleBreakTest extends UriTest implements UriTestInterface {
 	 */
 	public function perform() {
 		$html = $this->getUriResponse()->getBody();
+		$references = [];
 
 		if(preg_match_all('/(<br\s*\/?>\s*){2,}/mi', $html, $matches) !== 0) {
-			return new ErrorTestResult();
+			for($i = 0; $i < count($matches[0]); $i++) {
+				$references[] = $matches[0][$i];
+			}
+
+			return new ErrorTestResult('Found ' . count($matches[0]) . ' double breaks: ' . implode(', ', $references));
 		}
 
 		return new SuccessTestResult();

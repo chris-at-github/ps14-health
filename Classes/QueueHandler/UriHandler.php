@@ -8,6 +8,7 @@ use Ps14\Health\Domain\Model\UriResponse;
 use Ps14\Health\Domain\Repository\UriRepository;
 use Ps14\Health\Domain\Repository\UriResponseRepository;
 use Ps14\Health\Tests\AbstractTest;
+use Ps14\Health\Tests\Accessibility\BadLinkTextTest;
 use Ps14\Health\Tests\Accessibility\DoubleBreakTest;
 use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
 use Ps14\Health\Tests\Accessibility\EmptyAltAttributeTest;
@@ -52,25 +53,17 @@ class UriHandler {
 
 	public function handle() {
 		$response = $this->getResponse();
-		$logFile = Environment::getPublicPath() . '/fileadmin/documents/a11y.csv';
+		$logFile = Environment::getPublicPath() . '/fileadmin/documents/a11y.log';
+		$logEntries = [];
 		$tests = [
 			EmptyParagraphTest::class,
 			DoubleSpaceEntityTest::class,
 			DoubleBreakTest::class,
 			EmptyAltAttributeTest::class,
-		];
-		$error = false;
-		$log = [
-			$this->uri->getUri()
+			BadLinkTextTest::class,
 		];
 
-		if(is_file($logFile) === false) {
-			$fp = fopen($logFile, 'a+');
-			fputcsv($fp, array_merge(['Uri'], $tests));
-
-		} else {
-			$fp = fopen($logFile, 'a+');
-		}
+		$fp = fopen($logFile, 'a+');
 
 		foreach($tests as $test) {
 
@@ -81,22 +74,17 @@ class UriHandler {
 			$result = $testInstance->perform();
 
 			if($result instanceof ErrorTestResult) {
-				$error = true;
-				$log[$test] = 1;
-
-			} else {
-				$log[$test] = 0;
+				$logEntries[] = $result->getMessage();
 			}
 		}
 
-
-		DebuggerUtility::var_dump($log);
-
-		if($error === true) {
-			fputcsv($fp, $log);
-		}
-
-		fclose($fp);
+		DebuggerUtility::var_dump($logEntries);
+//
+//		if($error === true) {
+//			fputcsv($fp, $log);
+//		}
+//
+//		fclose($fp);
 	}
 
 	/**

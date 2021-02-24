@@ -16,9 +16,14 @@ class EmptyAltAttributeTest extends UriTest implements UriTestInterface {
 	 */
 	public function perform() {
 		$html = $this->getUriResponse()->getBody();
+		$references = [];
 
-		if(preg_match_all('/alt="\s*"/mi', $html, $matches) !== 0) {
-			return new ErrorTestResult();
+		if(preg_match_all('/<img.*? alt="\s*"[^>]*?\/?>/mi', $html, $matches) !== 0) {
+			for($i = 0; $i < count($matches[0]); $i++) {
+				$references[] = $matches[0][$i];
+			}
+
+			return new ErrorTestResult('Found ' . count($matches[0]) . ' images with empty alt-attribute: ' . implode(', ', $references));
 		}
 
 		return new SuccessTestResult();

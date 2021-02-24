@@ -18,7 +18,7 @@ class EmptyParagraphTest extends UriTest implements UriTestInterface {
 		$html = $this->getUriResponse()->getBody();
 
 		if(preg_match_all('/<p>(&nbsp;|\s*)<\/p>/mi', $html, $matches) !== 0) {
-			return new ErrorTestResult();
+			return new ErrorTestResult('Found ' . count($matches[0]) . ' empty paragraphs');
 		}
 
 		return new SuccessTestResult();
