@@ -115,42 +115,69 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	public function processQueueAction(Site $site) {
 
-		$now = new \DateTime();
+		$queueStart = time();
+		$runtime = 5;
 
-		/** @var QueryBuilder $queryBuilder */
-		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
-		$statement = $queryBuilder
-			->select('*')
-			->from('tx_health_domain_model_queue')
-			->where(
-				$queryBuilder->expr()->lte('execute_at', $queryBuilder->createNamedParameter($now->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
-			)
-			->orderBy('execute_at')
-			->setMaxResults(1)
-			->execute();
+		$this->processQueueListing($queueStart + $runtime);
 
-		if(($queue = $statement->fetch()) !== false) {
-
-			/** @var Site $site */
-			$site = $this->objectManager->get(SiteRepository::class)->findByUid((int) $queue['site']);
-
-			/** @var UriHandler $handler */
-			$handler = GeneralUtility::makeInstance($queue['handler'], $site, json_decode($queue['arguments'], true));
-			$handler->handle();
-
-			$executeAt = new \DateTime();
-			$executeAt->setTimestamp($now->getTimestamp() + $handler->getInterval());
-
-//			$queryBuilder
-//				->update('tx_health_domain_model_queue')
-//				->where(
-//					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($queue['uid'], \PDO::PARAM_INT))
-//				)
-//				->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
-//				->execute();
-		}
+//		/** @var QueryBuilder $queryBuilder */
+//		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_health_domain_model_queue');
+//		$statement = $queryBuilder
+//			->select('*')
+//			->from('tx_health_domain_model_queue')
+//			->where(
+//				$queryBuilder->expr()->lte('execute_at', $queryBuilder->createNamedParameter($queueStart->format('Y-m-d H:i:s'), \PDO::PARAM_STR))
+//			)
+//			->orderBy('execute_at')
+//			->setMaxResults(3)
+//			->execute();
+//
+//		while($data = $statement->fetch()) {
+//
+//			$rowStart = new \DateTime();
+//			DebuggerUtility::var_dump($rowStart->format('u'));
+//
+////			/** @var Site $site */
+////			$site = $this->objectManager->get(SiteRepository::class)->findByUid((int) $data['site']);
+////
+////			/** @var UriHandler $handler */
+////			$handler = GeneralUtility::makeInstance($data['handler'], $site, json_decode($data['arguments'], true));
+////			$handler->handle();
+////
+////			$executeAt = new \DateTime();
+////			$executeAt->setTimestamp($queueStart->getTimestamp() + $handler->getInterval());
+////
+////			$queryBuilder
+////				->update('tx_health_domain_model_queue')
+////				->where(
+////					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($data['uid'], \PDO::PARAM_INT))
+////				)
+////				->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
+////				->execute();
+//
+//
+//
+//			$rowEnd = new \DateTime();
+//
+//
+//			DebuggerUtility::var_dump($rowEnd->format('u'));
+//			DebuggerUtility::var_dump($rowEnd->format('u') - $rowStart->format('u'));
+//		}
 
 		return true;
+	}
+
+	protected function processQueueListing($runtime) {
+		$this->processQueueItem([]);
+		DebuggerUtility::var_dump(date('H:i:s'));
+
+		if(time() < $runtime) {
+			$this->processQueueListing($runtime);
+		}
+	}
+
+	protected function processQueueItem($data) {
+		usleep((int) (1 * 1000 * 1000));
 	}
 
 	/**
