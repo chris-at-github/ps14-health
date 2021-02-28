@@ -13,6 +13,7 @@ use Ps14\Health\Tests\Accessibility\DoubleBreakTest;
 use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
 use Ps14\Health\Tests\Accessibility\EmptyAltAttributeTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
+use Ps14\Health\Tests\Accessibility\ExistingHeader1Test;
 use Ps14\Health\Tests\Accessibility\TableThTest;
 use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Core\Core\Environment;
@@ -61,7 +62,8 @@ class UriHandler {
 //			DoubleBreakTest::class,
 //			EmptyAltAttributeTest::class,
 //			BadLinkTextTest::class,
-			TableThTest::class,
+//			TableThTest::class,
+			ExistingHeader1Test::class,
 		];
 
 		$fp = fopen($logFile, 'a+');
