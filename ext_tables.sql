@@ -12,7 +12,7 @@ CREATE TABLE tx_health_domain_model_uri (
 
 CREATE TABLE tx_health_domain_model_uriresponse (
 	last_request_time datetime DEFAULT NULL,
-	body text,
+	body mediumtext,
 	uri int(11) unsigned DEFAULT '0'
 );
 
