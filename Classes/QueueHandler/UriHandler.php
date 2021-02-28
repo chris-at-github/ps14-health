@@ -22,10 +22,9 @@ use GuzzleHttp\Client;
 class UriHandler {
 
 	/**
-	 * 1 Woche
-	 * @var int
+	 * @var string
 	 */
-	protected $interval = 604800;
+	protected $interval = 'P7D';
 
 	/**
 	 * @var Site
@@ -124,9 +123,9 @@ class UriHandler {
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getInterval(): int {
+	public function getInterval(): string {
 		return $this->interval;
 	}
 }
