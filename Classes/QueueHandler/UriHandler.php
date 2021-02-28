@@ -13,6 +13,7 @@ use Ps14\Health\Tests\Accessibility\DoubleBreakTest;
 use Ps14\Health\Tests\Accessibility\DoubleSpaceEntityTest;
 use Ps14\Health\Tests\Accessibility\EmptyAltAttributeTest;
 use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
+use Ps14\Health\Tests\Accessibility\TableThTest;
 use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -55,11 +56,12 @@ class UriHandler {
 		$logFile = Environment::getPublicPath() . '/fileadmin/documents/a11y.log';
 		$logEntries = [];
 		$tests = [
-			EmptyParagraphTest::class,
-			DoubleSpaceEntityTest::class,
-			DoubleBreakTest::class,
-			EmptyAltAttributeTest::class,
-			BadLinkTextTest::class,
+//			EmptyParagraphTest::class,
+//			DoubleSpaceEntityTest::class,
+//			DoubleBreakTest::class,
+//			EmptyAltAttributeTest::class,
+//			BadLinkTextTest::class,
+			TableThTest::class,
 		];
 
 		$fp = fopen($logFile, 'a+');
