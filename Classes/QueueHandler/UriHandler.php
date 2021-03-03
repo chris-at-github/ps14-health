@@ -58,13 +58,13 @@ class UriHandler {
 		$logFile = Environment::getPublicPath() . '/fileadmin/documents/a11y.log';
 		$logEntries = [];
 		$tests = [
-//			EmptyParagraphTest::class,
-//			DoubleSpaceEntityTest::class,
-//			DoubleBreakTest::class,
-//			EmptyAltAttributeTest::class,
-//			BadLinkTextTest::class,
-//			TableThTest::class,
-//			ExistingHeader1Test::class,
+			EmptyParagraphTest::class,
+			DoubleSpaceEntityTest::class,
+			DoubleBreakTest::class,
+			EmptyAltAttributeTest::class,
+			BadLinkTextTest::class,
+			TableThTest::class,
+			ExistingHeader1Test::class,
 			HeaderOrderTest::class,
 		];
 

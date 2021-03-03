@@ -18,7 +18,7 @@ class EmptyAltAttributeTest extends UriTest implements UriTestInterface {
 		$html = $this->getUriResponse()->getBody();
 		$references = [];
 
-		if(preg_match_all('/<img.*? alt="\s*"[^>]*?\/?>/mi', $html, $matches) !== 0) {
+		if(preg_match_all('/<img\s+[^>]*alt="\s*"[^>]*\/?>/mi', $html, $matches) !== 0) {
 			for($i = 0; $i < count($matches[0]); $i++) {
 				$references[] = $matches[0][$i];
 			}
