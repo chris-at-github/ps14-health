@@ -115,7 +115,7 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
 	public function processQueueAction(Site $site) {
 
-		$runtime = 1;
+		$runtime = 30;
 		$this->processQueueListing(time() + $runtime);
 
 		return true;
@@ -161,14 +161,14 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		$executeAt = new \DateTime();
 		$executeAt->add(new \DateInterval('P7D'));
 
-//		$queryBuilder
-//			->update('tx_health_domain_model_queue')
-//			->where(
-//				$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($data['uid'], \PDO::PARAM_INT))
-//			)
-//			->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
-//			->execute();
-//
+		$queryBuilder
+			->update('tx_health_domain_model_queue')
+			->where(
+				$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($data['uid'], \PDO::PARAM_INT))
+			)
+			->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
+			->execute();
+
 		usleep((int) (1 * 1000 * 1000));
 	}
 
