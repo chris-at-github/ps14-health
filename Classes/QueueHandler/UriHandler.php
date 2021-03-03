@@ -92,7 +92,7 @@ class UriHandler {
 			}
 
 			fwrite($fp, PHP_EOL);
-			DebuggerUtility::var_dump($logEntries);
+			DebuggerUtility::var_dump($logEntries, $this->uri->getUri());
 		}
 
 		fclose($fp);
