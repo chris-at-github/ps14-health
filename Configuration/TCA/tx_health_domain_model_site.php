@@ -21,10 +21,10 @@ return [
 		'iconfile' => 'EXT:health/Resources/Public/Icons/tx_health_domain_model_site.gif'
 	],
 	'interface' => [
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain, uris',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain',
 	],
 	'types' => [
-		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain, uris, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+		'1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, identifier, domain, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -115,14 +115,12 @@ return [
 				]
 			],
 		],
-
-
 		'title' => [
 			'exclude' => true,
 			'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site.title',
 			'config' => [
 				'type' => 'input',
-				'size' => 30,
+				'size' => 40,
 				'eval' => 'trim,required'
 			],
 		],
@@ -131,8 +129,8 @@ return [
 			'label' => 'LLL:EXT:health/Resources/Private/Language/locallang_db.xlf:tx_health_domain_model_site.identifier',
 			'config' => [
 				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'size' => 40,
+				'eval' => 'trim,required'
 			],
 		],
 		'domain' => [
@@ -143,6 +141,9 @@ return [
 				'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_health_domain_model_domain',
 				'default' => 0,
+				'items' => [
+					['', 0],
+				],
 				'minitems' => 0,
 				'maxitems' => 1,
 			],
