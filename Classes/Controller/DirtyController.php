@@ -169,7 +169,7 @@ class DirtyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 			->set('execute_at', $executeAt->format('Y-m-d H:i:s'))
 			->execute();
 
-		usleep((int) (1 * 1000 * 1000));
+		usleep((int) (1 * 1000 * 750));
 	}
 
 	/**

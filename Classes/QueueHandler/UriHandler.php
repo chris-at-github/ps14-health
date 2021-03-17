@@ -16,6 +16,7 @@ use Ps14\Health\Tests\Accessibility\EmptyParagraphTest;
 use Ps14\Health\Tests\Accessibility\ExistingHeader1Test;
 use Ps14\Health\Tests\Accessibility\HeaderOrderTest;
 use Ps14\Health\Tests\Accessibility\TableThTest;
+use Ps14\Health\Tests\Accessibility\VideoTrackTest;
 use Ps14\Health\Tests\ErrorTestResult;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -66,6 +67,7 @@ class UriHandler {
 			TableThTest::class,
 			ExistingHeader1Test::class,
 			HeaderOrderTest::class,
+			VideoTrackTest::class,
 		];
 
 		$fp = fopen($logFile, 'a+');
@@ -115,7 +117,8 @@ class UriHandler {
 			$response = $client->request('GET', $uri);
 
 			/** @var UriResponse $uriResponse */
-			$uriResponse = GeneralUtility::makeInstance(UriResponse::class);
+			// @todo: auf objectManager->createEmpty umbauen
+			$uriResponse = new UriResponse();
 			$uriResponse->setPid($this->site->getPid());
 			$uriResponse->setUri($this->uri);
 			$uriResponse->setLastRequestTime(new \DateTime());
